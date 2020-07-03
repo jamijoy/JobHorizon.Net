@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f95189d7745342be95bd734b87e5feb1" Name="Diagram1">
+        <EntityTypeShape EntityType="JobHorizonModel.BidList" Width="1.5" PointX="5.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobHorizonModel.Comment" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobHorizonModel.File" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobHorizonModel.Forum" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobHorizonModel.JobHistory" Width="1.5" PointX="5.25" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobHorizonModel.JobList" Width="1.5" PointX="3" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobHorizonModel.Messege" Width="1.5" PointX="3" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobHorizonModel.User" Width="1.5" PointX="0.75" PointY="17.625" IsExpanded="true" />
+        <AssociationConnector Association="JobHorizonModel.FK_BidList_JobList" ManuallyRouted="false" />
+        <AssociationConnector Association="JobHorizonModel.FK_BidList_User" ManuallyRouted="false" />
+        <AssociationConnector Association="JobHorizonModel.FK_Comment_Forum" ManuallyRouted="false" />
+        <AssociationConnector Association="JobHorizonModel.FK_Comment_User" ManuallyRouted="false" />
+        <AssociationConnector Association="JobHorizonModel.FK_File_User" ManuallyRouted="false" />
+        <AssociationConnector Association="JobHorizonModel.FK_Forum_User" ManuallyRouted="false" />
+        <AssociationConnector Association="JobHorizonModel.FK_JobHistory_JobList" ManuallyRouted="false" />
+        <AssociationConnector Association="JobHorizonModel.FK_JobHistory_User" ManuallyRouted="false" />
+        <AssociationConnector Association="JobHorizonModel.FK_JobList_User" ManuallyRouted="false" />
+        <AssociationConnector Association="JobHorizonModel.FK_Messege_User" ManuallyRouted="false" />
+        <AssociationConnector Association="JobHorizonModel.FK_Messege_User1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

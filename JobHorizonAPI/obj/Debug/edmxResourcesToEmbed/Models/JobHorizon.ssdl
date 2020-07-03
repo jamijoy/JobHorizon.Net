@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JobHorizonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BidList">
+    <Key>
+      <PropertyRef Name="BidId" />
+    </Key>
+    <Property Name="BidId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobId" Type="int" Nullable="false" />
+    <Property Name="BidBy" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="CommentId" />
+    </Key>
+    <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ForumId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="File">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="FileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="FileType" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Forum">
+    <Key>
+      <PropertyRef Name="ForumId" />
+    </Key>
+    <Property Name="ForumId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="2000" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobHistory">
+    <Key>
+      <PropertyRef Name="HistoryId" />
+    </Key>
+    <Property Name="HistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobId" Type="int" Nullable="false" />
+    <Property Name="BitBy" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Rating" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobList">
+    <Key>
+      <PropertyRef Name="JobId" />
+    </Key>
+    <Property Name="JobId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostedBy" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
+    <Property Name="Budget" Type="float" Nullable="false" />
+    <Property Name="JobType" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Messege">
+    <Key>
+      <PropertyRef Name="MessegeId" />
+    </Key>
+    <Property Name="MessegeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SenderId" Type="int" Nullable="false" />
+    <Property Name="ReceiverId" Type="int" Nullable="false" />
+    <Property Name="Messege" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DOB" Type="date" Nullable="false" />
+    <Property Name="Account Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" />
+    <Property Name="ProfileImage" Type="nvarchar" MaxLength="100" />
+    <Property Name="Rating" Type="float" />
+    <Property Name="WorkType" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_BidList_JobList">
+    <End Role="JobList" Type="Self.JobList" Multiplicity="1" />
+    <End Role="BidList" Type="Self.BidList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobList">
+        <PropertyRef Name="JobId" />
+      </Principal>
+      <Dependent Role="BidList">
+        <PropertyRef Name="JobId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BidList_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="BidList" Type="Self.BidList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="BidList">
+        <PropertyRef Name="BidBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Forum">
+    <End Role="Forum" Type="Self.Forum" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Forum">
+        <PropertyRef Name="ForumId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="ForumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_File_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="File" Type="Self.File" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="File">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Forum_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Forum" Type="Self.Forum" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Forum">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobHistory_JobList">
+    <End Role="JobList" Type="Self.JobList" Multiplicity="1" />
+    <End Role="JobHistory" Type="Self.JobHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobList">
+        <PropertyRef Name="JobId" />
+      </Principal>
+      <Dependent Role="JobHistory">
+        <PropertyRef Name="JobId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobHistory_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="JobHistory" Type="Self.JobHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="JobHistory">
+        <PropertyRef Name="BitBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobList_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="JobList" Type="Self.JobList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="JobList">
+        <PropertyRef Name="PostedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messege_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Messege" Type="Self.Messege" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Messege">
+        <PropertyRef Name="SenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messege_User1">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Messege" Type="Self.Messege" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Messege">
+        <PropertyRef Name="ReceiverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="JobHorizonModelStoreContainer">
+    <EntitySet Name="BidList" EntityType="Self.BidList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="File" EntityType="Self.File" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Forum" EntityType="Self.Forum" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobHistory" EntityType="Self.JobHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobList" EntityType="Self.JobList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Messege" EntityType="Self.Messege" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BidList_JobList" Association="Self.FK_BidList_JobList">
+      <End Role="JobList" EntitySet="JobList" />
+      <End Role="BidList" EntitySet="BidList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BidList_User" Association="Self.FK_BidList_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="BidList" EntitySet="BidList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Forum" Association="Self.FK_Comment_Forum">
+      <End Role="Forum" EntitySet="Forum" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_User" Association="Self.FK_Comment_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_File_User" Association="Self.FK_File_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="File" EntitySet="File" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Forum_User" Association="Self.FK_Forum_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Forum" EntitySet="Forum" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobHistory_JobList" Association="Self.FK_JobHistory_JobList">
+      <End Role="JobList" EntitySet="JobList" />
+      <End Role="JobHistory" EntitySet="JobHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobHistory_User" Association="Self.FK_JobHistory_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="JobHistory" EntitySet="JobHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobList_User" Association="Self.FK_JobList_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="JobList" EntitySet="JobList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messege_User" Association="Self.FK_Messege_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Messege" EntitySet="Messege" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messege_User1" Association="Self.FK_Messege_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="Messege" EntitySet="Messege" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
